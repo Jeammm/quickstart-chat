@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quickstart-chat-config
+data:
+  VITE_SPACETIMEDB_HOST: "https://maincloud.spacetimedb.com"
+  VITE_SPACETIMEDB_DB_NAME: "quickstart-chat-b4974"
+

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quickstart-chat
+  namespace: argocd # Argo CD control-plane namespace
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jeammm/quickstart-chat.git
+    targetRevision: main # or 'master' / a specific tag/branch
+    path: k8s # where deployment.yaml, service.yaml, ingress.yaml, configmap.yaml live
+
+  destination:
+    server: https://kubernetes.default.svc # in-cluster k3s API
+    namespace: quickstart-chat # app namespace (kubectl create ns quickstart-chat)
+
+  syncPolicy:
+    automated:
+      prune: true # remove resources deleted from git
+      selfHeal: true # correct drift automatically
+    syncOptions:
+      - CreateNamespace=true # create 'quickstart-chat' namespace if missing
